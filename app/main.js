@@ -1,4 +1,6 @@
-//Logica del proyecto
+//Logica del proyecto Login
+
+
 const loadInitialTemplate = () => {
     const template = `
     <div>
@@ -20,7 +22,7 @@ const loadInitialTemplate = () => {
 const body = document.getElementsByTagName("body")[0];
 body.innerHTML = template;
 } 
-
+//Funcion para crear animales en la base de datos.
 const addFormListener = () => {
     const animalForm  = document.getElementById("animal-form");
     animalForm.onsubmit = async (e) => {
@@ -33,13 +35,13 @@ const addFormListener = () => {
             body: JSON.stringify(data),
             headers:{
                 'Content-Type': 'application/json'
-            }
+            }      
         })
         animalForm.reset();
         getAnimals();
     }
 }
-
+//Obtiene animales (Elementos) de la base de datos
 const getAnimals = async () => {
     const response = await fetch("/animals", {
         headers:{
@@ -69,80 +71,17 @@ const getAnimals = async () => {
     })
     }
 
- /*  const showList = async () => {
-        const response = await fetch("/users");
-        const users = await response.json();
-        console.log(users);
-
-        const template = user1 => {
-            ` 
-            <li>
-            ${user1.nombre} ${user1.edad} ${user1.color}  <button data-id="${user1._id}">Eliminar</button>
-            </li>
-            `
-        }
-
-        const userList =  document.getElementById("user-list");
-        userList.innerHTML = users.map(user2 => template(user2)).join("");
-
-
-        users.forEach(user => {
-            const userNode = document.querySelector(`[data-id="${user._id}"]`);
-            userNode.onclick = async (e) => {
-              await fetch(`/users/${user._id}`,{
-                method: "DELETE",
-            })
-            userNode.parentNode.remove();
-            alert("Eliminado con exito");
-            }
-        });
-    }*/
-
-
-/*const aListener = () => {
-    const obtForm = document.getElementById("user-form");
-    obtForm.onsubmit = async (e) => {
-        e.preventDefault();
-        const formData = new FormData(obtForm);
-        const data = Object.fromEntries(formData.entries());
-        await fetch("/users", {
-            method: "POST",
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        obtForm.reset();
-    }
-}
-
-const addListener = () => {
-    const getF = document.getElementById("user-form");
-    getF.onsubmit = async (e) => {
-        e.preventDefault();
-        const formData = new FormData(getF);
-        const data = Object.fromEntries(formData.entries());
-        console.log(data);
-        await fetch("/users", {
-            method: "POST",
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        getF.reset();
-    }
-}*/
-
 
 const checkLogin = () => localStorage.getItem("jwt");
 
+//Función pagina de login
 const loginPage = () => {
     loadLoginTemplate();
     addLoginListener();
     gotoRegisterListener();
 }
 
+//funcion para cargar la pantalla de registro
 const loadRegisterTemplate = () => {
     const template = `
     <div>
@@ -165,6 +104,8 @@ const loadRegisterTemplate = () => {
 const body = document.getElementsByTagName("body")[0];
 body.innerHTML = template;
 }
+
+//Función para agregar registro de usuarios
 const addRegisterListener = () => {
     const registerForm = document.getElementById("register-form");
     registerForm.onsubmit = async (e) =>{
@@ -193,7 +134,7 @@ const addRegisterListener = () => {
 }
 const gotoLoginListener = () => {}
 
-
+//Función mostrar pagina de registro
 const registerPage = () =>{
     console.log("Pagina de registro");
     loadRegisterTemplate();
@@ -201,12 +142,14 @@ const registerPage = () =>{
     gotoLoginListener();
 } 
 
+//función pagina de animales
 const animalPage = () =>{
     loadInitialTemplate();
     addFormListener();
     getAnimals();
 } 
 
+//Carga la pagina de inicio de sesión (login)
 const loadLoginTemplate = () => {
     const template = `
     <div>
@@ -238,6 +181,8 @@ const gotoRegisterListener = () =>{
     }
 }
 
+
+//función agregar usuarios para login
 const addLoginListener = () =>{
     const loginForm = document.getElementById("login-form");
     loginForm.onsubmit = async (e) =>{
@@ -264,6 +209,7 @@ const addLoginListener = () =>{
     }
 }
 
+//función principal para iniciar a correr la app
 window.onload = () => { // variable window is a global object, for after load method onload
     const isLoggedIn = checkLogin();
     if(isLoggedIn){
