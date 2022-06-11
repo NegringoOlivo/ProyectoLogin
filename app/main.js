@@ -34,7 +34,8 @@ const addFormListener = () => {
             method: "POST",
             body: JSON.stringify(data),
             headers:{
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                Authorization:localStorage.getItem('jwt')
             }      
         })
         animalForm.reset();
@@ -43,7 +44,7 @@ const addFormListener = () => {
 }
 //Obtiene animales (Elementos) de la base de datos
 const getAnimals = async () => {
-    const response = await fetch("/animals", {
+    const response = await fetch("/animal", {
         headers:{
             Authorization: localStorage.getItem('jwt')
         }
@@ -53,7 +54,7 @@ const getAnimals = async () => {
     const template = animalL =>
         `
         <li>
-           ${animalL.nombre} ${animalL.tipo}  <button data-id="${animalL_id}">Eliminar</button>
+           ${animalL.nombre} ${animalL.tipo}  <button data-id="${animalL._id}">Eliminar</button>
         </li>
     `
     const animalList = document.getElementById("animal-list");
