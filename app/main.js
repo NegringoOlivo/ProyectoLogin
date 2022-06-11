@@ -1,4 +1,4 @@
-
+//Logica del proyecto
 const loadInitialTemplate = () => {
     const template = `
     <div>
